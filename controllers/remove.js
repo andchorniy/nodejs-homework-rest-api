@@ -1,21 +1,21 @@
-const contacts = require("../model/contacts.json");
+const contacts = require('../model/contacts.json')
 const removeContact = (req, res) => {
-  const { contactId } = req.params;
-  const index = contacts.findIndex((item) => item.id === +contactId);
+  const { contactId } = req.params
+  const index = contacts.findIndex(item => item.id === +contactId)
   if (index === -1) {
     res.status(404).json({
-      status: "error",
+      status: 'error',
       code: 404,
-      message: "Not found",
-    });
-    return;
+      message: 'Not found',
+    })
+    return
   }
-  contacts.splice(index, 1);
+  contacts.splice(index, 1)
   res.json({
-    status: "success",
+    status: 'success',
     code: 200,
-    message: "contact deleted",
-  });
-};
+    message: 'contact deleted',
+  })
+}
 
-module.exports = removeContact;
+module.exports = removeContact
