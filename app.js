@@ -14,12 +14,8 @@ app.use(express.json())
 
 app.use('/api/contacts', contactsRouter)
 
-app.use((req, res) => {
-  res.status(404).json({ message: 'Not found' })
-})
+const { PORT = 3000 } = process.env
 
-app.use((err, req, res, next) => {
-  res.status(500).json({ message: err.message })
-})
+app.listen(PORT)
 
 module.exports = app
