@@ -1,24 +1,19 @@
-const contacts = require('../model/contacts.json')
-const valid = require('../utils/validate/schemas/contacts')
-const addContact = (req, res) => {
-  const { error } = valid.addContactSchema.validate(req.body)
-  if (error) {
-    res.status(400).json({
-      status: 'error',
-      code: 400,
-      message: error.message,
+const { add } = require('../services')
+
+const addContact = async (req, res, next) => {
+  const { body } = req
+  try {
+    const result = await add(body)
+    res.json({
+      status: 'success',
+      code: 201,
+      data: {
+        result,
+      },
     })
+  } catch (error) {
+    next(error)
   }
-  const id = contacts[contacts.length - 1].id + 1
-  const newContact = { ...req.body, id }
-  contacts.push(newContact)
-  res.json({
-    status: 'success',
-    code: 201,
-    data: {
-      result: newContact,
-    },
-  })
 }
 
 module.exports = addContact
