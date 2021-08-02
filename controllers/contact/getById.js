@@ -1,8 +1,8 @@
-const { getById } = require('../services')
+const {contact} = require('../../services')
 const getContactById = async (req, res, next) => {
   const { id } = req.params
   try {
-    const result = await getById(id)
+    const result = await contact.getById(id)
     if (!result) {
       res.status(404).json({
         status: 'error',
