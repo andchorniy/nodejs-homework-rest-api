@@ -39,8 +39,16 @@ const validateUser = newUser => {
   const { error } = addUserSchema.validate(newUser)
   return error
 }
+const validateUpdateSubscription = newSubscription => {
+  const updateSchema = Joi.object({
+    subscription: Joi.string().valid('starter', 'pro', 'business').required(),
+  })
+  const { error } = updateSchema.validate(newSubscription)
+  return error
+}
 
 module.exports = {
   validateUser,
   userSchema,
+  validateUpdateSubscription,
 }

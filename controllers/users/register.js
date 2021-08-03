@@ -1,7 +1,7 @@
-const { users } = require('../../services')
+const { usersService } = require('../../services')
 
 const register = async (req, res, next) => {
-  const findOne = await users.findOne(req.body)
+  const findOne = await usersService.findOne(req.body)
   if (findOne) {
     return res.status(409).json({
       status: 'Conflict',
@@ -9,7 +9,7 @@ const register = async (req, res, next) => {
       message: 'Email in use',
     })
   }
-  const result = await users.register(req.body)
+  const result = await usersService.register(req.body)
   const { email, subscription } = result
   try {
     res.status(201).json({

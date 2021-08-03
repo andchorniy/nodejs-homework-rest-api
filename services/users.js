@@ -3,17 +3,22 @@ const User = require('../model/user')
 const findOne = ({ email }) => {
   return User.findOne({ email })
 }
+const findById = ({ id }) => {
+  return User.findById(id)
+}
 
 const register = ({ email, password }) => {
   const user = new User({ email })
   user.setPassword(password)
   return user.save()
 }
-const updateToken = (id, token) => {
-  return User.findByIdAndUpdate(id, { token })
+const updateUser = (id, uptate) => {
+  console.log(uptate)
+  return User.findByIdAndUpdate(id, uptate, { useFindAndModify: false })
 }
 module.exports = {
   register,
   findOne,
-  updateToken,
+  updateUser,
+  findById,
 }
