@@ -13,7 +13,6 @@ const register = ({ email, password }) => {
   return user.save()
 }
 const updateUser = (id, uptate) => {
-  console.log(uptate)
   return User.findByIdAndUpdate(id, uptate, { useFindAndModify: false })
 }
 module.exports = {

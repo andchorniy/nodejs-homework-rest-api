@@ -1,7 +1,16 @@
 const Contact = require('../model/contacts')
 
-const getAll = () => {
-  return Contact.find({})
+const getAll = (query, id) => {
+  const { page = 1, limit = 5, favorite } = query
+  const queryFavorite = favorite === undefined ? {} : { favorite }
+
+  return Contact.paginate(
+    { ...queryFavorite, owner: id },
+    {
+      limit,
+      page,
+    },
+  )
 }
 
 const add = newContact => {

@@ -3,11 +3,16 @@ const router = express.Router()
 const { contacts } = require('../../controllers')
 const middlewares = require('../../middleware')
 
-router.get('/', contacts.listContacts)
+router.get('/', middlewares.verifyToken, contacts.listContacts)
 
-router.get('/:id', contacts.getContactById)
+router.get('/:id', middlewares.verifyToken, contacts.getContactById)
 
-router.post('/', middlewares.validateContactMiddleware, contacts.addContact)
+router.post(
+  '/',
+  middlewares.validateContactMiddleware,
+  middlewares.verifyToken,
+  contacts.addContact,
+)
 
 router.delete('/:id', contacts.removeContact)
 
@@ -20,6 +25,7 @@ router.patch(
 router.patch(
   '/:id/favorite',
   middlewares.favoriteValidation,
+  middlewares.verifyToken,
   contacts.updateContact,
 )
 
