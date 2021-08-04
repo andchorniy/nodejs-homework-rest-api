@@ -26,7 +26,9 @@ const getById = async id => {
 }
 const remove = async id => {
   try {
-    const result = await Contact.findByIdAndDelete(id)
+    const result = await Contact.findByIdAndDelete(id, {
+      useFindAndModify: false,
+    })
     return result
   } catch (error) {
     console.log(error)
@@ -34,7 +36,10 @@ const remove = async id => {
 }
 const update = async (id, body) => {
   try {
-    const result = await Contact.findByIdAndUpdate(id, body, { new: true })
+    const result = await Contact.findByIdAndUpdate(id, body, {
+      new: true,
+      useFindAndModify: false,
+    })
     return result
   } catch (error) {
     console.log(error)
