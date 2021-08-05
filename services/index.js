@@ -1,3 +1,4 @@
-const services = require('./contacts')
+const contact = require('./contacts')
+const usersService = require('./users')
 
-module.exports = services
+module.exports = { contact, usersService }

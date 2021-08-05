@@ -1,4 +1,5 @@
-const { Schema } = require('mongoose')
+const { Schema, SchemaTypes } = require('mongoose')
+const mongoosePaginate = require('mongoose-paginate-v2')
 const Joi = require('joi')
 
 const contactsSchema = Schema(
@@ -16,6 +17,10 @@ const contactsSchema = Schema(
     favorite: {
       type: Boolean,
       default: false,
+    },
+    owner: {
+      type: SchemaTypes.ObjectId,
+      ref: 'user',
     },
   },
   { versionKey: false, timestamps: true },
@@ -45,6 +50,8 @@ const favoriteValidationSchema = newContact => {
   const { error } = addContactSchema.validate(newContact)
   return error
 }
+contactsSchema.plugin(mongoosePaginate)
+
 module.exports = {
   validateContact,
   validateUptadeContact,
