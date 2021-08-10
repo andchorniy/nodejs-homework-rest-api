@@ -1,3 +1,4 @@
+const gravatar = require('gravatar')
 const User = require('../model/user')
 
 const findOne = ({ email }) => {
@@ -8,7 +9,9 @@ const findById = ({ id }) => {
 }
 
 const register = ({ email, password }) => {
-  const user = new User({ email })
+  const avatarUrl = gravatar.url(email)
+  const user = new User({ email, avatarUrl })
+  console.log(user)
   user.setPassword(password)
   return user.save()
 }
