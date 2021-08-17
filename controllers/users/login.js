@@ -10,6 +10,13 @@ const login = async (req, res, next) => {
       message: 'Email or password is wrong',
     })
   }
+  if (!user.verify) {
+    return res.status(401).json({
+      status: 'error',
+      code: 401,
+      message: 'Verify your Email ',
+    })
+  }
   const { SECRET_KEY } = process.env
   const payload = {
     id: user._id,

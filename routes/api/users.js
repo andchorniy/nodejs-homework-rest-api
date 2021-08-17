@@ -27,6 +27,9 @@ router.post('/signup', middle.validateUserMiddleware, users.register)
 router.post('/login', middle.validateUserMiddleware, users.login)
 router.post('/logout', middle.verifyToken, users.logout)
 
+router.get('/verify/:verificationToken', users.verify)
+router.post('/verify', users.sendVerificationMail)
+
 router.patch(
   '/avatars',
   middle.verifyToken,
